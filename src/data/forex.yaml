@@ -1,0 +1,409 @@
+currencies:
+- AED:
+    Name: United Arab Emirates Dirham
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ae.svg
+    Countries: [UNITED ARAB EMIRATES (THE)]
+- AMD:
+    Name: Armenian Dram
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/am.svg
+    Countries: [ARMENIA]
+- ARS:
+    Name: Argentine Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ar.svg
+    Countries: [ARGENTINA]
+- AUD:
+    Name: Australian Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/au.svg
+    Countries: [AUSTRALIA, CHRISTMAS ISLAND, COCOS (KEELING) ISLANDS (THE), HEARD ISLAND AND McDONALD ISLANDS, KIRIBATI, NAURU, NORFOLK ISLAND, TUVALU]
+- AZN:
+    Name: Azerbaijani Manat
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/az.svg
+    Countries: [AZERBAIJAN]
+- BDT:
+    Name: Bangladeshi Taka
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bd.svg
+    Countries: [BANGLADESH]
+- BGN:
+    Name: Bulgarian Lev
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bg.svg
+    Countries: [BULGARIA]
+- BRL:
+    Name: Brazilian Real
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/br.svg
+    Countries: [BRAZIL]
+- CAD:
+    Name: Canadian Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ca.svg
+    Countries: [CANADA]
+- CHF:
+    Name: Swiss Franc
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ch.svg
+    Countries: [LIECHTENSTEIN, SWITZERLAND]
+- CLP:
+    Name: Chilean Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cl.svg
+    Countries: [CHILE]
+- CNH:
+    Name: Chinese Yuan (Offshore)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cn.svg
+    Countries: [CHINA]
+- CNY:
+    Name: Chinese Yuan
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cn.svg
+    Countries: [CHINA]
+- COP:
+    Name: Colombian Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/co.svg
+    Countries: [COLOMBIA]
+- CRC:
+    Name: Costa Rican Colón
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cr.svg
+    Countries: [COSTA RICA]
+- CUP:
+    Name: Cuban Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cu.svg
+    Countries: [CUBA]
+- CUS:
+    Name: Custom Currency
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- CZK:
+    Name: Czech Koruna
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cz.svg
+    Countries: [CZECHIA]
+- DKK:
+    Name: Danish Krone
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/dk.svg
+    Countries: [DENMARK, FAROE ISLANDS (THE), GREENLAND]
+- DOP:
+    Name: Dominican Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/do.svg
+    Countries: [DOMINICAN REPUBLIC (THE)]
+- DZD:
+    Name: Algerian Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/dz.svg
+    Countries: [ALGERIA]
+- EGP:
+    Name: Egyptian Pound
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/eg.svg
+    Countries: [EGYPT]
+- EUR:
+    Name: Euro
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/european_union.svg
+    Countries: [ÅLAND ISLANDS, ANDORRA, AUSTRIA, BELGIUM, CROATIA, CYPRUS, ESTONIA, EUROPEAN UNION, FINLAND, FRANCE, FRENCH GUIANA, FRENCH SOUTHERN TERRITORIES (THE), GERMANY, GREECE, GUADELOUPE, HOLY SEE (THE), IRELAND, ITALY, LATVIA, LITHUANIA, LUXEMBOURG, MALTA, MARTINIQUE, MAYOTTE, MONACO, MONTENEGRO, NETHERLANDS (THE), PORTUGAL, RÉUNION, SAINT BARTHÉLEMY, SAINT MARTIN (FRENCH PART), SAINT PIERRE AND MIQUELON, SAN MARINO, SLOVAKIA, SLOVENIA, SPAIN]
+- FRE:
+    Name: Free Currency
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- GBP:
+    Name: British Pound Sterling
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg
+    Countries: [GUERNSEY, ISLE OF MAN, JERSEY, UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE)]
+- GEL:
+    Name: Georgian Lari
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ge.svg
+    Countries: [GEORGIA]
+- GHS:
+    Name: Ghanaian Cedi
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gh.svg
+    Countries: [GHANA]
+- GSF:
+    Name: Custom Currency (GSF)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- GSO:
+    Name: Custom Currency (GSO)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- HKD:
+    Name: Hong Kong Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/hk.svg
+    Countries: [HONG KONG]
+- HRK:
+    Name: Croatian Kuna
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/hr.svg
+    Countries: [CROATIA]
+- HUF:
+    Name: Hungarian Forint
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/hu.svg
+    Countries: [HUNGARY]
+- IDR:
+    Name: Indonesian Rupiah
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/id.svg
+    Countries: [INDONESIA]
+- ILS:
+    Name: Israeli New Shekel
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/il.svg
+    Countries: [ISRAEL]
+- INR:
+    Name: Indian Rupee
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/in.svg
+    Countries: [BHUTAN, INDIA]
+- IQD:
+    Name: Iraqi Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/iq.svg
+    Countries: [IRAQ]
+- IRR:
+    Name: Iranian Rial
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ir.svg
+    Countries: [IRAN (ISLAMIC REPUBLIC OF)]
+- JOD:
+    Name: Jordanian Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/jo.svg
+    Countries: [JORDAN]
+- JPY:
+    Name: Japanese Yen
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/jp.svg
+    Countries: [JAPAN]
+- KES:
+    Name: Kenyan Shilling
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ke.svg
+    Countries: [KENYA]
+- KGS:
+    Name: Kyrgystani Som
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/kg.svg
+    Countries: [KYRGYZSTAN]
+- KHR:
+    Name: Cambodian Riel
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/kh.svg
+    Countries: [CAMBODIA]
+- KRW:
+    Name: South Korean Won
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/kr.svg
+    Countries: [KOREA (THE REPUBLIC OF)]
+- KWD:
+    Name: Kuwaiti Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/kw.svg
+    Countries: [KUWAIT]
+- KZT:
+    Name: Kazakhstani Tenge
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/kz.svg
+    Countries: [KAZAKHSTAN]
+- LKR:
+    Name: Sri Lankan Rupee
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/lk.svg
+    Countries: [SRI LANKA]
+- LYD:
+    Name: Libyan Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ly.svg
+    Countries: [LIBYA]
+- MAD:
+    Name: Moroccan Dirham
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ma.svg
+    Countries: [MOROCCO, WESTERN SAHARA]
+- MDL:
+    Name: Moldovan Leu
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/md.svg
+    Countries: [MOLDOVA (THE REPUBLIC OF)]
+- MXN:
+    Name: Mexican Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/mx.svg
+    Countries: [MEXICO]
+- MYR:
+    Name: Malaysian Ringgit
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/my.svg
+    Countries: [MALAYSIA]
+- NGN:
+    Name: Nigerian Naira
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ng.svg
+    Countries: [NIGERIA]
+- NOK:
+    Name: Norwegian Krone
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/no.svg
+    Countries: [BOUVET ISLAND, NORWAY, SVALBARD AND JAN MAYEN]
+- NPR:
+    Name: Nepalese Rupee
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/np.svg
+    Countries: [NEPAL]
+- NZD:
+    Name: New Zealand Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/nz.svg
+    Countries: [COOK ISLANDS (THE), NEW ZEALAND, NIUE, PITCAIRN, TOKELAU]
+- OMR:
+    Name: Omani Rial
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/om.svg
+    Countries: [OMAN]
+- OTC:
+    Name: Over-the-Counter
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- PAB:
+    Name: Panamanian Balboa
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/pa.svg
+    Countries: [PANAMA]
+- PEN:
+    Name: Peruvian Sol
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/pe.svg
+    Countries: [PERU]
+- PHP:
+    Name: Philippine Peso
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ph.svg
+    Countries: [PHILIPPINES (THE)]
+- PKR:
+    Name: Pakistani Rupee
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/pk.svg
+    Countries: [PAKISTAN]
+- PLN:
+    Name: Polish Złoty
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/pl.svg
+    Countries: [POLAND]
+- QAR:
+    Name: Qatari Riyal
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/qa.svg
+    Countries: [QATAR]
+- RON:
+    Name: Romanian Leu
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ro.svg
+    Countries: [ROMANIA]
+- RSD:
+    Name: Serbian Dinar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/rs.svg
+    Countries: [SERBIA]
+- RUB:
+    Name: Russian Ruble
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ru.svg
+    Countries: [RUSSIAN FEDERATION (THE)]
+- RWF:
+    Name: Rwandan Franc
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/rw.svg
+    Countries: [RWANDA]
+- SAR:
+    Name: Saudi Riyal
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/sa.svg
+    Countries: [SAUDI ARABIA]
+- SEK:
+    Name: Swedish Krona
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/se.svg
+    Countries: [SWEDEN]
+- SGD:
+    Name: Singapore Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/sg.svg
+    Countries: [SINGAPORE]
+- SLO:
+    Name: Custom Currency (SLO)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- SOS:
+    Name: Somali Shilling
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/so.svg
+    Countries: [SOMALIA]
+- TES:
+    Name: Custom Currency (TES)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/xx.svg
+- THB:
+    Name: Thai Baht
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/th.svg
+    Countries: [THAILAND]
+- TJS:
+    Name: Tajikistani Somoni
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tj.svg
+    Countries: [TAJIKISTAN]
+- TMT:
+    Name: Turkmenistani Manat
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tm.svg
+    Countries: [TURKMENISTAN]
+- TRY:
+    Name: Turkish Lira
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tr.svg
+    Countries: [TURKEY]
+- TWD:
+    Name: New Taiwan Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tw.svg
+    Countries: [TAIWAN (PROVINCE OF CHINA)]
+- TZS:
+    Name: Tanzanian Shilling
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tz.svg
+    Countries: [TANZANIA, UNITED REPUBLIC OF]
+- UAH:
+    Name: Ukrainian Hryvnia
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ua.svg
+    Countries: [UKRAINE]
+- UGX:
+    Name: Ugandan Shilling
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ug.svg
+    Countries: [UGANDA]
+- USD:
+    Name: United States Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/us.svg
+    Countries: [AMERICAN SAMOA, BONAIRE, SINT EUSTATIUS AND SABA, BRITISH INDIAN OCEAN TERRITORY (THE), ECUADOR, EL SALVADOR, GUAM, HAITI, MARSHALL ISLANDS (THE), MICRONESIA (FEDERATED STATES OF), NORTHERN MARIANA ISLANDS (THE), PALAU, PANAMA, PUERTO RICO, TIMOR-LESTE, TURKS AND CAICOS ISLANDS (THE), UNITED STATES MINOR OUTLYING ISLANDS (THE), UNITED STATES OF AMERICA (THE), VIRGIN ISLANDS (BRITISH), VIRGIN ISLANDS (U.S.)]
+- UZS:
+    Name: Uzbekistani Som
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/uz.svg
+    Countries: [UZBEKISTAN]
+- VND:
+    Name: Vietnamese Đồng
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/vn.svg
+    Countries: [VIET NAM]
+- XAF:
+    Name: Central African CFA Franc
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/cf.svg
+    Countries: [CAMEROON, CENTRAL AFRICAN REPUBLIC (THE), CHAD, CONGO (THE), EQUATORIAL GUINEA, GABON]
+- XOF:
+    Name: West African CFA Franc
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ci.svg
+    Countries: [BENIN, BURKINA FASO, CÔTE D'IVOIRE, GUINEA-BISSAU, MALI, NIGER (THE), SENEGAL, TOGO]
+- ZAR:
+    Name: South African Rand
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/za.svg
+    Countries: [LESOTHO, NAMIBIA, SOUTH AFRICA]
+- ZMK:
+    Name: Zambian Kwacha (pre-2013)
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/zm.svg
+- ZMW:
+    Name: Zambian Kwacha
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/zm.svg
+    Countries: [ZAMBIA]
+- AFN:
+    Name: Afghan Afghani
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/af.svg
+    Countries: [AFGHANISTAN]
+- ALL:
+    Name: Albanian Lek
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/al.svg
+    Countries: [ALBANIA]
+- AOA:
+    Name: Angolan Kwanza
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ao.svg
+    Countries: [ANGOLA]
+- AWG:
+    Name: Aruban Florin
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/aw.svg
+    Countries: [ARUBA]
+- BAM:
+    Name: Bosnia and Herzegovina Convertible Mark
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ba.svg
+    Countries: [BOSNIA AND HERZEGOVINA]
+- BBD:
+    Name: Barbadian Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bb.svg
+    Countries: [BARBADOS]
+- BIF:
+    Name: Burundian Franc
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bi.svg
+    Countries: [BURUNDI]
+- BMD:
+    Name: Bermudian Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bm.svg
+    Countries: [BERMUDA]
+- BND:
+    Name: Brunei Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bn.svg
+    Countries: [BRUNEI DARUSSALAM]
+- BOB:
+    Name: Bolivian Boliviano
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bo.svg
+    Countries: [BOLIVIA (PLURINATIONAL STATE OF)]
+- BSD:
+    Name: Bahamian Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bs.svg
+    Countries: [BAHAMAS]
+- BTN:
+    Name: Bhutanese Ngultrum
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bt.svg
+    Countries: [BHUTAN]
+- BWP:
+    Name: Botswana Pula
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bw.svg
+    Countries: [BOTSWANA]
+- BYN:
+    Name: Belarusian Ruble
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg
+    Countries: [BELARUS]
+- BZD:
+    Name: Belize Dollar
+    Icon: https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/bz.svg
+    Countries: [BELIZE]
