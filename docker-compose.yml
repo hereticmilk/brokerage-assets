@@ -6,9 +6,11 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - backend
+    environment:
+      - VITE_API_BASE_URL=/brokerage-assets/api
 
   backend:
     build:
@@ -16,8 +18,19 @@ services:
       dockerfile: Dockerfile
     environment:
       - PORT=3001
+      - BASE_PATH=/brokerage-assets
     volumes:
       - ./output:/app/output
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
 
 volumes:
   output:

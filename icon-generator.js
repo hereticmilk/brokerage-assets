@@ -12,6 +12,9 @@ import sharp from 'sharp';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Add this near the top of the file
+const BASE_PATH = process.env.BASE_PATH || '';
+
 // Utility functions
 const utils = {
   fetchSVG: (url) => {
@@ -378,10 +381,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // Add this line near the top of your file, after creating the app
 
-// Serve static files only in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/dist')));
-}
+// Use the BASE_PATH for all routes
+app.use(BASE_PATH, express.static(path.join(__dirname, 'frontend/dist')));
+app.use(`${BASE_PATH}/output`, express.static(path.join(__dirname, 'output')));
 
 // Initialize data and Fuse instances
 let currenciesArray = [];
@@ -400,7 +402,7 @@ let currencyFuse, cryptoFuse;
 })();
 
 // Routes
-app.get('/api/search-currencies', (req, res) => {
+app.get(`${BASE_PATH}/api/search-currencies`, (req, res) => {
   console.log('Received currency search request:', req.query);
   const query = req.query.q ? req.query.q.toLowerCase() : '';
   const results = currencyFuse.search(query);
@@ -415,7 +417,7 @@ app.get('/api/search-currencies', (req, res) => {
   res.json(suggestions);
 });
 
-app.get('/api/search-cryptos', (req, res) => {
+app.get(`${BASE_PATH}/api/search-cryptos`, (req, res) => {
   console.log('Received crypto search request:', req.query);
   const query = req.query.q ? req.query.q.toLowerCase() : '';
   const results = cryptoFuse.search(query);
