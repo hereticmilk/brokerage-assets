@@ -219,6 +219,34 @@ function App() {
     setCryptoSymbol(symbol);
   };
 
+  const handleCurrencySearch = async (query: string) => {
+    try {
+      const response = await fetch(`/api/search-currencies?query=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setCurrencies(data);
+    } catch (error) {
+      console.error('Error fetching currencies:', error);
+      toast.error('Failed to fetch currencies. Please try again.');
+    }
+  };
+
+  const handleCryptoSearch = async (query: string) => {
+    try {
+      const response = await fetch(`/api/search-cryptos?query=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setCryptos(data);
+    } catch (error) {
+      console.error('Error fetching cryptocurrencies:', error);
+      toast.error('Failed to fetch cryptocurrencies. Please try again.');
+    }
+  };
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <div className="min-h-screen bg-background text-foreground flex flex-col">

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node icon-generator.js",
+    "start": "node api/index.js",
     "dev": "concurrently \"npm run start\" \"npm run dev:frontend\"",
     "dev:frontend": "cd frontend && vite",
     "build": "cd frontend && vite build",
