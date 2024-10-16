@@ -229,7 +229,11 @@ function App() {
       setCurrencies(data);
     } catch (error) {
       console.error('Error fetching currencies:', error);
-      toast.error('Failed to fetch currencies. Please try again.');
+      toast({
+        title: 'Error',
+        description: 'Failed to fetch currencies. Please try again.',
+        variant: 'destructive',
+      });
     }
   };
 
@@ -243,7 +247,11 @@ function App() {
       setCryptos(data);
     } catch (error) {
       console.error('Error fetching cryptocurrencies:', error);
-      toast.error('Failed to fetch cryptocurrencies. Please try again.');
+      toast({
+        title: 'Error',
+        description: 'Failed to fetch cryptocurrencies. Please try again.',
+        variant: 'destructive',
+      });
     }
   };
 
