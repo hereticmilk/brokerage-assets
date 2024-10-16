@@ -40,9 +40,6 @@ interface IconSize {
   label: string;
 }
 
-// Add this near the top of the file
-const BASE_PATH = import.meta.env.VITE_API_BASE_URL || '';
-
 function App() {
   const [loading, setLoading] = useState(false);
   const [forexCountry1, setForexCountry1] = useState('');
@@ -70,7 +67,7 @@ function App() {
   const fetchCurrencies = async (query: string) => {
     try {
       console.log('Fetching currencies with query:', query);
-      const response = await fetch(`${BASE_PATH}/api/search-currencies?q=${query}`);
+      const response = await fetch(`/api/search-currencies?q=${query}`);
       if (!response.ok) {
         console.error('Response not OK:', response.status, response.statusText);
         throw new Error('Failed to fetch currencies');
@@ -91,7 +88,7 @@ function App() {
   const fetchCryptos = async (query: string) => {
     try {
       console.log('Fetching cryptos with query:', query);
-      const response = await fetch(`${BASE_PATH}/api/search-cryptos?q=${query}`);
+      const response = await fetch(`/api/search-cryptos?q=${query}`);
       if (!response.ok) {
         console.error('Response not OK:', response.status, response.statusText);
         throw new Error('Failed to fetch cryptos');
@@ -111,7 +108,7 @@ function App() {
 
   const fetchBrands = async () => {
     try {
-      const response = await fetch(`${BASE_PATH}/api/brands`);
+      const response = await fetch('/api/brands');
       if (!response.ok) {
         throw new Error('Failed to fetch brands');
       }
@@ -151,7 +148,7 @@ function App() {
       let response;
       if (type === 'forex') {
         console.log('Generating forex with:', { currency1: forexCountry1, currency2: forexCountry2, brand: selectedBrand });
-        response = await fetch(`${BASE_PATH}/api/generate`, {
+        response = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -163,7 +160,7 @@ function App() {
       } else {
         const symbol = cryptoSymbol.split(' ')[0];
         console.log('Generating crypto with:', { symbol, brand: selectedBrand });
-        response = await fetch(`${BASE_PATH}/api/generate-crypto`, {
+        response = await fetch('/api/generate-crypto', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
