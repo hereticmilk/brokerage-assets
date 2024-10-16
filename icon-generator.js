@@ -334,12 +334,7 @@ const search = {
 // Express app setup
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve static files only in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/dist')));
-}
-
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/output', express.static(path.join(__dirname, 'output')));
 
 // Initialize data and Fuse instances
@@ -357,7 +352,7 @@ let currencyFuse, cryptoFuse;
 })();
 
 // Routes
-app.get('/api/search-currencies', (req, res) => {
+app.get('/search-currencies', (req, res) => {
   console.log('Received currency search request:', req.query);
   const query = req.query.q ? req.query.q.toLowerCase() : '';
   const results = currencyFuse.search(query);
@@ -372,7 +367,7 @@ app.get('/api/search-currencies', (req, res) => {
   res.json(suggestions);
 });
 
-app.get('/api/search-cryptos', (req, res) => {
+app.get('/search-cryptos', (req, res) => {
   console.log('Received crypto search request:', req.query);
   const query = req.query.q ? req.query.q.toLowerCase() : '';
   const results = cryptoFuse.search(query);
@@ -387,7 +382,7 @@ app.get('/api/search-cryptos', (req, res) => {
   res.json(suggestions);
 });
 
-app.post('/api/generate', async (req, res) => {
+app.post('/generate', async (req, res) => {
   console.log('Received generate request:', req.body);
   try {
     const { currency1, currency2 } = req.body;
@@ -430,7 +425,7 @@ app.post('/api/generate', async (req, res) => {
   }
 });
 
-app.post('/api/generate-crypto', async (req, res) => {
+app.post('/generate-crypto', async (req, res) => {
   console.log('Received generate crypto request:', req.body);
   try {
     const { symbol } = req.body;
@@ -456,12 +451,13 @@ app.post('/api/generate-crypto', async (req, res) => {
   }
 });
 
-// Start the server only if not in production (for local development)
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+// Catchall handler
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
-export default app;
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

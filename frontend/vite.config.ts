@@ -11,13 +11,31 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000',
-      '/generate': 'http://localhost:3000',
-      '/generate-crypto': 'http://localhost:3000',
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/generate': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/generate-crypto': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/search-currencies': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/search-cryptos': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     emptyOutDir: true,
   },
 });
