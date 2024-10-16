@@ -1,30 +1,33 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
 import Fuse from 'fuse.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(bodyParser.json());
 
 // Load forex data
-const forexData = yaml.load(fs.readFileSync(join(__dirname, '../src/data/forex.yaml'), 'utf8'));
+const forexPath = path.join(__dirname, '..', 'src', 'data', 'forex.yaml');
+const forexData = yaml.load(fs.readFileSync(forexPath, 'utf8'));
 const currencies = forexData.currencies.map(currency => {
   const [code, details] = Object.entries(currency)[0];
   return { code, name: details.Name, icon: details.Icon };
 });
 
-// Load crypto data
-const cryptoData = yaml.load(fs.readFileSync(join(__dirname, '../src/data/crypto.yaml'), 'utf8'));
-const cryptos = cryptoData.cryptocurrencies.map(crypto => {
-  const [symbol, details] = Object.entries(crypto)[0];
-  return { symbol, name: details.Name, color: details.Color };
-});
+// Load crypto data from manifest.json
+const manifestPath = path.join(__dirname, '..', 'node_modules', 'cryptocurrency-icons', 'manifest.json');
+const cryptoData = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+const cryptos = cryptoData.map(crypto => ({
+  symbol: crypto.symbol,
+  name: crypto.name,
+  color: crypto.color
+}));
 
 // Setup Fuse for search
 const fuseOptions = {

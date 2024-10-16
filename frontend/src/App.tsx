@@ -47,14 +47,11 @@ function App() {
 
   const fetchCurrencies = async (query: string) => {
     try {
-      console.log('Fetching currencies with query:', query);
-      const response = await fetch(`/api/search-currencies?q=${query}`);
+      const response = await fetch(`/api/search-currencies?query=${encodeURIComponent(query)}`);
       if (!response.ok) {
-        console.error('Response not OK:', response.status, response.statusText);
-        throw new Error('Failed to fetch currencies');
+        throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Received currency data:', data);
       setCurrencies(data);
     } catch (error) {
       console.error('Error fetching currencies:', error);
@@ -68,17 +65,14 @@ function App() {
 
   const fetchCryptos = async (query: string) => {
     try {
-      console.log('Fetching cryptos with query:', query);
-      const response = await fetch(`/api/search-cryptos?q=${query}`);
+      const response = await fetch(`/api/search-cryptos?query=${encodeURIComponent(query)}`);
       if (!response.ok) {
-        console.error('Response not OK:', response.status, response.statusText);
-        throw new Error('Failed to fetch cryptos');
+        throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Received crypto data:', data);
       setCryptos(data);
     } catch (error) {
-      console.error('Error fetching cryptos:', error);
+      console.error('Error fetching cryptocurrencies:', error);
       toast({
         title: 'Error',
         description: 'Failed to fetch cryptocurrencies. Please try again.',
