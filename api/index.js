@@ -5,6 +5,7 @@ import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
 import Fuse from 'fuse.js';
+import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,5 +55,20 @@ app.get('/api/search-cryptos', (req, res) => {
   const results = query ? cryptoFuse.search(query) : cryptos;
   res.json(results.map(result => result.item || result));
 });
+
+// Add these routes to handle asset generation
+app.post('/api/generate', async (req, res) => {
+  console.log('Received generation request:', req.body);
+  // Implementation for generating forex assets
+});
+
+app.post('/api/generate-crypto', async (req, res) => {
+  console.log('Received generation request:', req.body);
+  // Implementation for generating crypto assets
+});
+
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000'
+}));
 
 export default app;

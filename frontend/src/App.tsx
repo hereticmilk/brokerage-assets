@@ -104,20 +104,23 @@ function App() {
     try {
       let response;
       if (type === 'forex') {
-        response = await fetch('/generate', {
+        response = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `currency1=${encodeURIComponent(forexCountry1)}&currency2=${encodeURIComponent(forexCountry2)}`
         });
       } else {
-        response = await fetch('/generate-crypto', {
+        response = await fetch('/api/generate-crypto', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `symbol=${encodeURIComponent(cryptoSymbol)}`
         });
       }
 
-      if (!response.ok) throw new Error(`Failed to generate ${type} assets`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to generate ${type} assets: ${errorText}`);
+      }
 
       const data: SvgObject[] = await response.json();
       if (type === 'forex') {
