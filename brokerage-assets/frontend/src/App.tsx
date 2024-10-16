@@ -110,13 +110,13 @@ function App() {
     try {
       let response;
       if (type === 'forex') {
-        response = await fetch('/api/generate', {
+        response = await fetch('/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `currency1=${encodeURIComponent(forexCountry1)}&currency2=${encodeURIComponent(forexCountry2)}`
         });
       } else {
-        response = await fetch('/api/generate-crypto', {
+        response = await fetch('/generate-crypto', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: `symbol=${encodeURIComponent(cryptoSymbol)}`
