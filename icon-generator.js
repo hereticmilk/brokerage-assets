@@ -158,7 +158,7 @@ const svgGenerator = {
     `.trim();
   },
 
-  combineFlagsWithBadgeSVG: async (country1, country2, badgeName, brand = 'Default') => {
+  combineFlagsWithBadgeSVG: async (country1, country2, badgeName, brand = 'Default', size = 100) => {
     const flag1Url = `https://hatscripts.github.io/circle-flags/flags/${country1}.svg`;
     const flag2Url = `https://hatscripts.github.io/circle-flags/flags/${country2}.svg`;
     const badgePath = path.join(__dirname, 'src', 'badges', brand, `${badgeName}.svg`);
@@ -169,7 +169,7 @@ const svgGenerator = {
       utils.readLocalSVG(badgePath)
     ]);
 
-    const flagSize = 66;
+    const flagSize = size === 56 ? 38 : 66;
     const circleCenter = flagSize / 2;
     const circleRadius = circleCenter - 0.5;
 
@@ -183,7 +183,7 @@ const svgGenerator = {
     const badgeY = 100 - badgeHeight;
 
     return `
-      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
         <defs>
           <clipPath id="circleClip">
             <circle cx="${circleCenter}" cy="${circleCenter}" r="${circleRadius}" />
@@ -299,15 +299,16 @@ const svgGenerator = {
 const fileOps = {
   generateCombinedFlagSVGs: async (country1, country2, brand = 'Default') => {
     const versions = [
-      { name: '56x56', svg: await svgGenerator.combineFlagsSVG(country1, country2, 56), width: 56, height: 56 },
-      { name: '100x100', svg: await svgGenerator.combineFlagsSVG(country1, country2, 100), width: 100, height: 100 },
-      { name: '100x100_OTC', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'OTC', brand), width: 100, height: 100 },
-      { name: '100x100_LEVERAGED', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'LEVERAGED', brand), width: 100, height: 100 }
+      { name: 'Original_56x56', svg: await svgGenerator.combineFlagsSVG(country1, country2, 56), width: 56, height: 56 },
+      { name: 'Original_100x100', svg: await svgGenerator.combineFlagsSVG(country1, country2, 100), width: 100, height: 100 },
+      { name: 'OTC_56x56', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'OTC', brand, 56), width: 56, height: 56 },
+      { name: 'OTC_100x100', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'OTC', brand, 100), width: 100, height: 100 },
+      { name: 'LEVERAGED_56x56', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'LEVERAGED', brand, 56), width: 56, height: 56 },
+      { name: 'LEVERAGED_100x100', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'LEVERAGED', brand, 100), width: 100, height: 100 }
     ];
 
     const results = [];
     for (const version of versions) {
-      // Convert SVG to PNG
       const svgBuffer = Buffer.from(version.svg);
       const pngBuffer = await fileOps.convertSvgToPng(svgBuffer, version.width, version.height);
       const pngBase64 = pngBuffer.toString('base64');
@@ -323,15 +324,16 @@ const fileOps = {
 
   generateCryptoIcons: async (symbol, brand = 'Default') => {
     const versions = [
-      { name: '56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56), width: 56, height: 56 },
-      { name: '100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100), width: 100, height: 100 },
-      { name: '100x100_OTC', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'OTC', brand), width: 100, height: 100 },
-      { name: '100x100_LEVERAGED', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'LEVERAGED', brand), width: 100, height: 100 }
+      { name: 'Original_56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56), width: 56, height: 56 },
+      { name: 'Original_100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100), width: 100, height: 100 },
+      { name: 'OTC_56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56, 'OTC', brand), width: 56, height: 56 },
+      { name: 'OTC_100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'OTC', brand), width: 100, height: 100 },
+      { name: 'LEVERAGED_56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56, 'LEVERAGED', brand), width: 56, height: 56 },
+      { name: 'LEVERAGED_100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'LEVERAGED', brand), width: 100, height: 100 }
     ];
 
     const results = [];
     for (const version of versions) {
-      // Convert SVG to PNG
       const svgBuffer = Buffer.from(version.svg);
       const pngBuffer = await fileOps.convertSvgToPng(svgBuffer, version.width, version.height);
       const pngBase64 = pngBuffer.toString('base64');

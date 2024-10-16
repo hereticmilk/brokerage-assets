@@ -34,6 +34,12 @@ interface Brand {
   name: string;
 }
 
+// Add this new interface
+interface IconSize {
+  value: string;
+  label: string;
+}
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [forexCountry1, setForexCountry1] = useState('');
@@ -46,6 +52,11 @@ function App() {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string>('Default');
   const { toast } = useToast();
+
+  // Add these new state variables
+  const [originalSize, setOriginalSize] = useState<string>("100x100");
+  const [otcSize, setOtcSize] = useState<string>("100x100");
+  const [leveragedSize, setLeveragedSize] = useState<string>("100x100");
 
   useEffect(() => {
     fetchCurrencies('');
@@ -193,6 +204,11 @@ function App() {
     }
   };
 
+  const iconSizes: IconSize[] = [
+    { value: "56x56", label: "56x56" },
+    { value: "100x100", label: "100x100" },
+  ];
+
   const renderResults = (results: SvgObject[]) => {
     if (results.length === 0) return null;
 
@@ -220,17 +236,8 @@ function App() {
       window.URL.revokeObjectURL(blobUrl);
     };
 
-    const getIconType = (name: string) => {
-      if (name.includes('OTC')) return 'OTC';
-      if (name.includes('LEVERAGED')) return 'Leveraged';
-      if (name.includes('Compact')) return 'Compact';
-      return 'Original';
-    };
-
-    const getIconSize = (name: string) => {
-      if (name.includes('100x100')) return '100x100';
-      if (name.includes('56x56')) return '56x56';
-      return '';
+    const getIconByTypeAndSize = (type: string, size: string) => {
+      return results.find(item => item.name.includes(type) && item.name.includes(size));
     };
 
     const createSvgDataUrl = (svgContent: string) => {
@@ -238,43 +245,69 @@ function App() {
       return `data:image/svg+xml,${encodedSvg}`;
     };
 
+    const renderCard = (type: string, size: string, setSize: React.Dispatch<React.SetStateAction<string>>) => {
+      const icon = getIconByTypeAndSize(type, size);
+      if (!icon) return null;
+
+      return (
+        <Card className="flex flex-col">
+          <CardHeader>
+            <CardTitle>{type}</CardTitle>
+            <CardDescription>
+              <Select 
+                value={size} 
+                onValueChange={setSize} 
+                disabled={type === "OTC" || type === "LEVERAGED"}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select size" />
+                </SelectTrigger>
+                <SelectContent>
+                  {iconSizes.map((size) => (
+                    <SelectItem key={size.value} value={size.value}>
+                      {size.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex flex-col items-center justify-center">
+            <div className="w-32 h-32 mb-4 flex items-center justify-center">
+              <img 
+                src={createSvgDataUrl(icon.svg)} 
+                alt={icon.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="flex space-x-2">
+              <Button
+                onClick={() => handleDownload(icon.svg, `${icon.name}.svg`, 'svg')}
+                variant="outline"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                SVG
+              </Button>
+              <Button
+                onClick={() => handleDownload(icon.pngBase64, `${icon.name}.png`, 'png')}
+                variant="outline"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                PNG
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    };
+
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {results.map((item, index) => (
-          <Card key={index} className="flex flex-col">
-            <CardHeader>
-              <CardTitle>{getIconType(item.name)}</CardTitle>
-              <CardDescription>{getIconSize(item.name)}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col items-center justify-center">
-              <div className="w-32 h-32 mb-4 flex items-center justify-center">
-                <img 
-                  src={createSvgDataUrl(item.svg)} 
-                  alt={item.name}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="flex space-x-2">
-                <Button
-                  onClick={() => handleDownload(item.svg, `${item.name}.svg`, 'svg')}
-                  variant="outline"
-                  size="sm"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  SVG
-                </Button>
-                <Button
-                  onClick={() => handleDownload(item.pngBase64, `${item.name}.png`, 'png')}
-                  variant="outline"
-                  size="sm"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  PNG
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {renderCard("Original", originalSize, setOriginalSize)}
+        {renderCard("OTC", otcSize, setOtcSize)}
+        {renderCard("LEVERAGED", leveragedSize, setLeveragedSize)}
       </div>
     );
   };
