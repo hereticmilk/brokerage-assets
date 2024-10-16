@@ -219,7 +219,7 @@ const svgGenerator = {
     console.log(`Found crypto data:`, crypto);
 
     let svgContent = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
+      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
     `;
 
     if (crypto) {
@@ -236,22 +236,23 @@ const svgGenerator = {
         const match = cleanIconContent.match(/<svg[^>]*>([\s\S]*?)<\/svg\s*>/im);
         if (match && match[1]) {
           const iconSvg = match[1];
+          const scale = size === 56 ? 1.75 : 3.125;
           svgContent += `
-            <g transform="translate(0, 0) scale(3.125)">
+            <g transform="translate(0, 0) scale(${scale})">
               ${iconSvg}
             </g>
           `;
         } else {
           console.log(`Could not extract SVG content for ${symbol}`);
-          svgContent += svgGenerator.getFallbackIcon(symbol);
+          svgContent += svgGenerator.getFallbackIcon(symbol, size);
         }
       } else {
         console.log(`Icon file not found for ${symbol}`);
-        svgContent += svgGenerator.getFallbackIcon(symbol);
+        svgContent += svgGenerator.getFallbackIcon(symbol, size);
       }
     } else {
       console.log(`No crypto data found for ${symbol}`);
-      svgContent += svgGenerator.getFallbackIcon(symbol);
+      svgContent += svgGenerator.getFallbackIcon(symbol, size);
     }
 
     if (variant) {
@@ -265,7 +266,7 @@ const svgGenerator = {
 
       // Calculate position to place badge in lower left corner
       const badgeX = 0;
-      const badgeY = 100 - badgeHeight;
+      const badgeY = size - badgeHeight;
 
       svgContent += `
         <g transform="translate(${badgeX},${badgeY})">
@@ -281,11 +282,12 @@ const svgGenerator = {
     return svgContent.trim();
   },
 
-  getFallbackIcon: (symbol) => {
+  getFallbackIcon: (symbol, size = 100) => {
     const fallbackColor = `#${utils.generateColorFromString(symbol)}`;
+    const fontSize = size === 56 ? 28 : 50;
     return `
-      <rect width="100" height="100" fill="${fallbackColor}" />
-      <text x="50" y="50" font-family="Arial, sans-serif" font-size="50" font-weight="bold" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF">
+      <rect width="${size}" height="${size}" fill="${fallbackColor}" />
+      <text x="${size/2}" y="${size/2}" font-family="Arial, sans-serif" font-size="${fontSize}" font-weight="bold" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF">
         ${symbol.charAt(0).toUpperCase()}
       </text>
     `;
@@ -322,6 +324,7 @@ const fileOps = {
     }
 
     const versions = [
+      { name: '56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56) },
       { name: '100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100) },
       { name: '100x100_OTC', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'OTC', brand) },
       { name: '100x100_LEVERAGED', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'LEVERAGED', brand) }
