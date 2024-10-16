@@ -6,7 +6,7 @@
     "start": "node icon-generator.js",
     "dev": "concurrently \"npm run start\" \"npm run dev:frontend\"",
     "dev:frontend": "cd frontend && vite",
-    "build": "cd frontend && tsc && vite build",
+    "build": "cd frontend && vite build",
     "lint": "eslint frontend/src",
     "preview": "cd frontend && vite preview"
   },

@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 dist/
+frontend/dist/
 output/
 
 # Logs
@@ -23,3 +24,6 @@ Thumbs.db
 # Vite
 *.local
 node_modules/
+
+package-lock.json
+.vercel
