@@ -4,9 +4,13 @@
   "type": "module",
   "scripts": {
     "start": "node icon-generator.js",
-    "dev": "concurrently \"npm run start\" \"npm run dev:frontend\"",
+    "dev:backend": "node icon-generator.js",
     "dev:frontend": "cd frontend && vite",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "build": "cd frontend && npm install && npm run build",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "lint": "eslint frontend/src",
     "preview": "cd frontend && vite preview"
   },
