@@ -10,6 +10,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
 import { Cat, Languages, Loader2, Zap } from 'lucide-react';
 import { Download } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface Currency {
   code: string;
@@ -29,6 +30,10 @@ interface SvgObject {
   downloadUrl: string;
 }
 
+interface Brand {
+  name: string;
+}
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [forexCountry1, setForexCountry1] = useState('');
@@ -38,11 +43,14 @@ function App() {
   const [cryptoResults, setCryptoResults] = useState<SvgObject[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const [selectedBrand, setSelectedBrand] = useState<string>('Default');
   const { toast } = useToast();
 
   useEffect(() => {
     fetchCurrencies('');
     fetchCryptos('');
+    fetchBrands();
   }, []);
 
   const fetchCurrencies = async (query: string) => {
@@ -87,6 +95,24 @@ function App() {
     }
   };
 
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch('/api/brands');
+      if (!response.ok) {
+        throw new Error('Failed to fetch brands');
+      }
+      const data = await response.json();
+      setBrands(data);
+    } catch (error) {
+      console.error('Error fetching brands:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to fetch brands. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const handleGenerate = async (type: 'forex' | 'crypto') => {
     if (type === 'forex' && (!forexCountry1 || !forexCountry2)) {
       toast({
@@ -110,20 +136,33 @@ function App() {
     try {
       let response;
       if (type === 'forex') {
+        console.log('Generating forex with:', { currency1: forexCountry1, currency2: forexCountry2, brand: selectedBrand });
         response = await fetch('/api/generate', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `currency1=${encodeURIComponent(forexCountry1)}&currency2=${encodeURIComponent(forexCountry2)}`
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            currency1: forexCountry1,
+            currency2: forexCountry2,
+            brand: selectedBrand
+          })
         });
       } else {
+        const symbol = cryptoSymbol.split(' ')[0];
+        console.log('Generating crypto with:', { symbol, brand: selectedBrand });
         response = await fetch('/api/generate-crypto', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `symbol=${encodeURIComponent(cryptoSymbol)}`
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            symbol,
+            brand: selectedBrand
+          })
         });
       }
 
-      if (!response.ok) throw new Error(`Failed to generate ${type} assets`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to generate ${type} assets`);
+      }
 
       const data: SvgObject[] = await response.json();
       if (type === 'forex') {
@@ -215,8 +254,7 @@ function App() {
 
   const handleCryptoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    const symbol = value.split(' ')[0];
-    setCryptoSymbol(symbol);
+    setCryptoSymbol(value); // Store the full value, including name
   };
 
   return (
@@ -226,9 +264,21 @@ function App() {
           <div className="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8">
             <div>
               <h1 className="text-2xl font-bold">Brokerage Graphical Assets</h1>
-              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Artur Tretiukhin</a></p>
+              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="text hover:underline">Artur Tretiukhin</a></p>
             </div>
             <div className="flex items-center space-x-2">
+              <Select onValueChange={setSelectedBrand} defaultValue={selectedBrand}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select brand" />
+                </SelectTrigger>
+                <SelectContent>
+                  {brands.map((brand) => (
+                    <SelectItem key={brand.name} value={brand.name}>
+                      {brand.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Button variant="outline" size="icon">
                 <Languages className="h-4 w-4" />
               </Button>
