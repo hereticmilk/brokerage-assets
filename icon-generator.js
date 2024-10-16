@@ -65,6 +65,24 @@ const dataInit = {
 
     console.log('Fetched forex data:', currenciesArray.slice(0, 5));
     return currenciesArray;
+  },
+
+  fetchCryptoData: () => {
+    const cryptoPath = path.join(__dirname, 'src', 'data', 'crypto.yaml');
+    const cryptoContent = fs.readFileSync(cryptoPath, 'utf8');
+    const cryptoData = yaml.load(cryptoContent);
+    
+    const cryptoArray = cryptoData.cryptocurrencies.map(crypto => {
+      const [symbol, details] = Object.entries(crypto)[0];
+      return {
+        symbol,
+        name: details.Name,
+        icon: details.Icon
+      };
+    });
+
+    console.log('Fetched crypto data:', cryptoArray.slice(0, 5));
+    return cryptoArray;
   }
 };
 
@@ -344,13 +362,15 @@ app.use('/output', express.static(path.join(__dirname, 'output')));
 
 // Initialize data and Fuse instances
 let currenciesArray = [];
+let cryptoArray = [];
 let currencyFuse, cryptoFuse;
 
 (async () => {
   try {
     currenciesArray = dataInit.fetchForexData();
+    cryptoArray = dataInit.fetchCryptoData();
     currencyFuse = new Fuse(currenciesArray, fuseInit.countryFuseOptions);
-    cryptoFuse = new Fuse(dataInit.cryptoIconsData, fuseInit.cryptoFuseOptions);
+    cryptoFuse = new Fuse(cryptoArray, fuseInit.cryptoFuseOptions);
   } catch (error) {
     console.error('Error initializing data:', error);
   }
@@ -381,7 +401,7 @@ app.get('/api/search-cryptos', (req, res) => {
   const suggestions = results.slice(0, 5).map(result => ({
     symbol: result.item.symbol,
     name: result.item.name,
-    color: result.item.color || utils.generateColorFromString(result.item.symbol)
+    icon: result.item.icon
   }));
 
   res.json(suggestions);
@@ -434,6 +454,12 @@ app.post('/api/generate-crypto', async (req, res) => {
   console.log('Received generate crypto request:', req.body);
   try {
     const { symbol } = req.body;
+    const cryptoData = cryptoArray.find(c => c.symbol.toLowerCase() === symbol.toLowerCase());
+
+    if (!cryptoData) {
+      throw new Error('Invalid cryptocurrency symbol');
+    }
+
     const outputDir = await fileOps.saveCryptoIcon(symbol);
     
     const files = fs.readdirSync(outputDir);
@@ -442,7 +468,7 @@ app.post('/api/generate-crypto', async (req, res) => {
       const filePath = `/output/cryptos/${symbol}/${file}`;
       const svgContent = fs.readFileSync(path.join(outputDir, file), 'utf8');
       return {
-        name: file.replace(`${symbol}_`, ''),
+        name: file.replace(`${symbol}_`, '').replace('.svg', ''),
         svg: svgContent,
         downloadUrl: filePath
       };

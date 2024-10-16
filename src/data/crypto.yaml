@@ -1,0 +1,151 @@
+cryptocurrencies:
+- BTC:
+    Name: Bitcoin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/btc.svg
+- ETH:
+    Name: Ethereum
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/eth.svg
+- USDT:
+    Name: Tether
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/usdt.svg
+- BNB:
+    Name: Binance Coin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/bnb.svg
+- XRP:
+    Name: XRP
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/xrp.svg
+- ADA:
+    Name: Cardano
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/ada.svg
+- DOGE:
+    Name: Dogecoin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/doge.svg
+- USDC:
+    Name: USD Coin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/usdc.svg
+- DOT:
+    Name: Polkadot
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/dot.svg
+- UNI:
+    Name: Uniswap
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/uni.svg
+- BUSD:
+    Name: Binance USD
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/busd.svg
+- BCH:
+    Name: Bitcoin Cash
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/bch.svg
+- LTC:
+    Name: Litecoin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/ltc.svg
+- SOL:
+    Name: Solana
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/sol.svg
+- LINK:
+    Name: Chainlink
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/link.svg
+- MATIC:
+    Name: Polygon
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/matic.svg
+- XLM:
+    Name: Stellar
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/xlm.svg
+- ETC:
+    Name: Ethereum Classic
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/etc.svg
+- ATOM:
+    Name: Cosmos
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/atom.svg
+- XMR:
+    Name: Monero
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/xmr.svg
+- AAVE:
+    Name: AAVE
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/aave.svg
+- ALGO:
+    Name: Algorand
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/algo.svg
+- APE:
+    Name: ApeCoin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/ape.svg
+- AVAX:
+    Name: Avalanche
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/avax.svg
+- BAT:
+    Name: Basic Attention Token
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/bat.svg
+- COMP:
+    Name: Compound
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/comp.svg
+- CRV:
+    Name: Curve DAO Token
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/crv.svg
+- DAI:
+    Name: Dai
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/dai.svg
+- DASH:
+    Name: Dash
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/dash.svg
+- FIL:
+    Name: Filecoin [IOU]
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/fil.svg
+- GRT:
+    Name: The Graph
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/grt.svg
+- ICP:
+    Name: Internet Computer
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/icp.svg
+- KSM:
+    Name: Kusama
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/ksm.svg
+- LEO:
+    Name: Unus Sed LEO
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/leo.svg
+- MKR:
+    Name: Maker
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/mkr.svg
+- NEO:
+    Name: NEO
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/neo.svg
+- PAXG:
+    Name: PAX Gold
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/paxg.svg
+- SAND:
+    Name: The Sandbox
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/sand.svg
+- SNX:
+    Name: Synthetix
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/snx.svg
+- SUSHI:
+    Name: SushiSwap
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/sushi.svg
+- THETA:
+    Name: Theta Network
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/theta.svg
+- TRX:
+    Name: TRON
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/trx.svg
+- TUSD:
+    Name: TrueUSD
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/tusd.svg
+- VET:
+    Name: VeChain
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/vet.svg
+- WAVES:
+    Name: Waves
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/waves.svg
+- WBTC:
+    Name: Wrapped Bitcoin
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/wbtc.svg
+- XTZ:
+    Name: Tezos
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/xtz.svg
+- YFI:
+    Name: yearn.finance
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/yfi.svg
+- ZEC:
+    Name: Zcash
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/zec.svg
+- ZIL:
+    Name: Zilliqa
+    Icon: https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/svg/color/zil.svg
