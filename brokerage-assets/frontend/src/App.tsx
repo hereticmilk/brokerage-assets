@@ -10,7 +10,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
 import { Cat, Languages, Loader2, Zap } from 'lucide-react';
 import { Download } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface Currency {
   code: string;
@@ -27,17 +26,7 @@ interface Crypto {
 interface SvgObject {
   name: string;
   svg: string;
-  pngBase64: string;
-}
-
-interface Brand {
-  name: string;
-}
-
-// Add this new interface
-interface IconSize {
-  value: string;
-  label: string;
+  downloadUrl: string;
 }
 
 function App() {
@@ -49,19 +38,11 @@ function App() {
   const [cryptoResults, setCryptoResults] = useState<SvgObject[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
-  const [brands, setBrands] = useState<Brand[]>([]);
-  const [selectedBrand, setSelectedBrand] = useState<string>('Default');
   const { toast } = useToast();
-
-  // Add these new state variables
-  const [originalSize, setOriginalSize] = useState<string>("100x100");
-  const [otcSize, setOtcSize] = useState<string>("100x100");
-  const [leveragedSize, setLeveragedSize] = useState<string>("100x100");
 
   useEffect(() => {
     fetchCurrencies('');
     fetchCryptos('');
-    fetchBrands();
   }, []);
 
   const fetchCurrencies = async (query: string) => {
@@ -106,24 +87,6 @@ function App() {
     }
   };
 
-  const fetchBrands = async () => {
-    try {
-      const response = await fetch('/api/brands');
-      if (!response.ok) {
-        throw new Error('Failed to fetch brands');
-      }
-      const data = await response.json();
-      setBrands(data);
-    } catch (error) {
-      console.error('Error fetching brands:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to fetch brands. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
-
   const handleGenerate = async (type: 'forex' | 'crypto') => {
     if (type === 'forex' && (!forexCountry1 || !forexCountry2)) {
       toast({
@@ -147,33 +110,20 @@ function App() {
     try {
       let response;
       if (type === 'forex') {
-        console.log('Generating forex with:', { currency1: forexCountry1, currency2: forexCountry2, brand: selectedBrand });
-        response = await fetch('/api/generate', {
+        response = await fetch('/generate', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            currency1: forexCountry1,
-            currency2: forexCountry2,
-            brand: selectedBrand
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `currency1=${encodeURIComponent(forexCountry1)}&currency2=${encodeURIComponent(forexCountry2)}`
         });
       } else {
-        const symbol = cryptoSymbol.split(' ')[0];
-        console.log('Generating crypto with:', { symbol, brand: selectedBrand });
-        response = await fetch('/api/generate-crypto', {
+        response = await fetch('/generate-crypto', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            symbol,
-            brand: selectedBrand
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `symbol=${encodeURIComponent(cryptoSymbol)}`
         });
       }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Failed to generate ${type} assets`);
-      }
+      if (!response.ok) throw new Error(`Failed to generate ${type} assets`);
 
       const data: SvgObject[] = await response.json();
       if (type === 'forex') {
@@ -204,110 +154,55 @@ function App() {
     }
   };
 
-  const iconSizes: IconSize[] = [
-    { value: "56x56", label: "56x56" },
-    { value: "100x100", label: "100x100" },
-  ];
-
   const renderResults = (results: SvgObject[]) => {
     if (results.length === 0) return null;
 
-    const handleDownload = (data: string, fileName: string, type: 'svg' | 'png') => {
-      let blob;
-      if (type === 'svg') {
-        blob = new Blob([data], { type: 'image/svg+xml' });
-      } else if (type === 'png') {
-        const byteCharacters = atob(data);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        blob = new Blob([byteArray], { type: 'image/png' });
-      }
-
-      const blobUrl = window.URL.createObjectURL(blob);
+    const handleDownload = (svg: string, fileName: string) => {
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = blobUrl;
+      link.href = url;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(blobUrl);
+      URL.revokeObjectURL(url);
     };
 
-    const getIconByTypeAndSize = (type: string, size: string) => {
-      return results.find(item => item.name.includes(type) && item.name.includes(size));
+    const getIconType = (name: string) => {
+      if (name.includes('OTC')) return 'OTC';
+      if (name.includes('LEVERAGED')) return 'Leveraged';
+      if (name.includes('Compact')) return 'Compact';
+      return 'Original';
     };
 
-    const createSvgDataUrl = (svgContent: string) => {
-      const encodedSvg = encodeURIComponent(svgContent);
-      return `data:image/svg+xml,${encodedSvg}`;
-    };
-
-    const renderCard = (type: string, size: string, setSize: React.Dispatch<React.SetStateAction<string>>) => {
-      const icon = getIconByTypeAndSize(type, size);
-      if (!icon) return null;
-
-      return (
-        <Card className="flex flex-col">
-          <CardHeader>
-            <CardTitle>{type}</CardTitle>
-            <CardDescription>
-              <Select 
-                value={size} 
-                onValueChange={setSize} 
-                disabled={type === "OTC" || type === "LEVERAGED"}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select size" />
-                </SelectTrigger>
-                <SelectContent>
-                  {iconSizes.map((size) => (
-                    <SelectItem key={size.value} value={size.value}>
-                      {size.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow flex flex-col items-center justify-center">
-            <div className="w-32 h-32 mb-4 flex items-center justify-center">
-              <img 
-                src={createSvgDataUrl(icon.svg)} 
-                alt={icon.name}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="flex space-x-2">
-              <Button
-                onClick={() => handleDownload(icon.svg, `${icon.name}.svg`, 'svg')}
-                variant="outline"
-                size="sm"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                SVG
-              </Button>
-              <Button
-                onClick={() => handleDownload(icon.pngBase64, `${icon.name}.png`, 'png')}
-                variant="outline"
-                size="sm"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                PNG
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      );
+    const getIconSize = (name: string) => {
+      if (name.includes('100x100')) return '100x100';
+      if (name.includes('56x56')) return '56x56';
+      return '';
     };
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {renderCard("Original", originalSize, setOriginalSize)}
-        {renderCard("OTC", otcSize, setOtcSize)}
-        {renderCard("LEVERAGED", leveragedSize, setLeveragedSize)}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {results.map((item, index) => (
+          <Card key={index} className="flex flex-col">
+            <CardHeader>
+              <CardTitle>{getIconType(item.name)}</CardTitle>
+              <CardDescription>{getIconSize(item.name)}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col items-center justify-center">
+              <div className="w-24 h-24 mb-4" dangerouslySetInnerHTML={{ __html: item.svg }} />
+              <Button
+                onClick={() => handleDownload(item.svg, `${item.name}.svg`)}
+                variant="outline"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     );
   };
@@ -320,7 +215,8 @@ function App() {
 
   const handleCryptoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setCryptoSymbol(value); // Store the full value, including name
+    const symbol = value.split(' ')[0];
+    setCryptoSymbol(symbol);
   };
 
   return (
@@ -330,21 +226,9 @@ function App() {
           <div className="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8">
             <div>
               <h1 className="text-2xl font-bold">Brokerage Graphical Assets</h1>
-              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="text hover:underline">Artur Tretiukhin</a></p>
+              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Artur Tretiukhin</a></p>
             </div>
             <div className="flex items-center space-x-2">
-              <Select onValueChange={setSelectedBrand} defaultValue={selectedBrand}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select brand" />
-                </SelectTrigger>
-                <SelectContent>
-                  {brands.map((brand) => (
-                    <SelectItem key={brand.name} value={brand.name}>
-                      {brand.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
               <Button variant="outline" size="icon">
                 <Languages className="h-4 w-4" />
               </Button>
