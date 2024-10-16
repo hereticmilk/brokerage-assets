@@ -7,6 +7,7 @@ import Fuse from 'fuse.js';
 import yaml from 'js-yaml';
 import { fileURLToPath } from 'url';
 import { DOMParser } from 'xmldom';
+import sharp from 'sharp';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -296,47 +297,59 @@ const svgGenerator = {
 
 // File operations
 const fileOps = {
-  saveCombinedFlagSVGs: async (country1, country2, brand = 'Default') => {
-    const outputDir = path.join(__dirname, 'output', `${country1}_${country2}`);
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-
+  generateCombinedFlagSVGs: async (country1, country2, brand = 'Default') => {
     const versions = [
-      { name: '56x56', svg: await svgGenerator.combineFlagsSVG(country1, country2, 56) },
-      { name: '100x100', svg: await svgGenerator.combineFlagsSVG(country1, country2, 100) },
-      { name: '100x100_OTC', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'OTC', brand) },
-      { name: '100x100_LEVERAGED', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'LEVERAGED', brand) }
+      { name: '56x56', svg: await svgGenerator.combineFlagsSVG(country1, country2, 56), width: 56, height: 56 },
+      { name: '100x100', svg: await svgGenerator.combineFlagsSVG(country1, country2, 100), width: 100, height: 100 },
+      { name: '100x100_OTC', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'OTC', brand), width: 100, height: 100 },
+      { name: '100x100_LEVERAGED', svg: await svgGenerator.combineFlagsWithBadgeSVG(country1, country2, 'LEVERAGED', brand), width: 100, height: 100 }
     ];
 
+    const results = [];
     for (const version of versions) {
-      const outputFile = path.join(outputDir, `${country1}_${country2}_${version.name}.svg`);
-      fs.writeFileSync(outputFile, version.svg);
+      // Convert SVG to PNG
+      const svgBuffer = Buffer.from(version.svg);
+      const pngBuffer = await fileOps.convertSvgToPng(svgBuffer, version.width, version.height);
+      const pngBase64 = pngBuffer.toString('base64');
+      results.push({
+        name: version.name,
+        svg: version.svg,
+        pngBase64: pngBase64,
+      });
     }
-    
-    console.log(`Combined flag SVGs saved to: ${outputDir}`);
+
+    return results;
   },
 
-  saveCryptoIcon: async (symbol, brand = 'Default') => {
-    const outputDir = path.join(__dirname, 'output', 'cryptos', symbol);
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-
+  generateCryptoIcons: async (symbol, brand = 'Default') => {
     const versions = [
-      { name: '56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56) },
-      { name: '100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100) },
-      { name: '100x100_OTC', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'OTC', brand) },
-      { name: '100x100_LEVERAGED', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'LEVERAGED', brand) }
+      { name: '56x56', svg: await svgGenerator.createCryptoIcon(symbol, 56), width: 56, height: 56 },
+      { name: '100x100', svg: await svgGenerator.createCryptoIcon(symbol, 100), width: 100, height: 100 },
+      { name: '100x100_OTC', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'OTC', brand), width: 100, height: 100 },
+      { name: '100x100_LEVERAGED', svg: await svgGenerator.createCryptoIcon(symbol, 100, 'LEVERAGED', brand), width: 100, height: 100 }
     ];
 
+    const results = [];
     for (const version of versions) {
-      const outputFile = path.join(outputDir, `${symbol}_${version.name}.svg`);
-      fs.writeFileSync(outputFile, version.svg);
+      // Convert SVG to PNG
+      const svgBuffer = Buffer.from(version.svg);
+      const pngBuffer = await fileOps.convertSvgToPng(svgBuffer, version.width, version.height);
+      const pngBase64 = pngBuffer.toString('base64');
+      results.push({
+        name: version.name,
+        svg: version.svg,
+        pngBase64: pngBase64,
+      });
     }
-    
-    console.log(`Crypto icon SVGs saved to: ${outputDir}`);
-    return outputDir;
+
+    return results;
+  },
+
+  convertSvgToPng: async (svgBuffer, width, height) => {
+    return sharp(svgBuffer)
+      .resize(width, height)
+      .png()
+      .toBuffer();
   }
 };
 
@@ -367,8 +380,6 @@ app.use(bodyParser.json()); // Add this line near the top of your file, after cr
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'frontend/dist')));
 }
-
-app.use('/output', express.static(path.join(__dirname, 'output')));
 
 // Initialize data and Fuse instances
 let currenciesArray = [];
@@ -442,21 +453,8 @@ app.post('/api/generate', async (req, res) => {
     const country1 = getCountryCode(currency1Data.icon);
     const country2 = getCountryCode(currency2Data.icon);
 
-    await fileOps.saveCombinedFlagSVGs(country1, country2, brand);
-    
-    const outputDir = path.join(__dirname, 'output', `${country1}_${country2}`);
-    const files = fs.readdirSync(outputDir);
-    
-    let svgObjects = files.map(file => {
-      const filePath = `/output/${country1}_${country2}/${file}`;
-      const svgContent = fs.readFileSync(path.join(outputDir, file), 'utf8');
-      return {
-        name: file.replace(`${country1}_${country2}_`, '').replace('.svg', ''),
-        svg: svgContent,
-        downloadUrl: filePath
-      };
-    });
-    
+    const svgObjects = await fileOps.generateCombinedFlagSVGs(country1, country2, brand);
+
     console.log('Sending generate response');
     res.json(svgObjects);
   } catch (error) {
@@ -481,20 +479,8 @@ app.post('/api/generate-crypto', async (req, res) => {
       throw new Error(`Invalid cryptocurrency symbol: ${symbol}`);
     }
 
-    const outputDir = await fileOps.saveCryptoIcon(symbol, brand);
-    
-    const files = fs.readdirSync(outputDir);
-    
-    let svgObjects = files.map(file => {
-      const filePath = `/output/cryptos/${symbol}/${file}`;
-      const svgContent = fs.readFileSync(path.join(outputDir, file), 'utf8');
-      return {
-        name: file.replace(`${symbol}_`, '').replace('.svg', ''),
-        svg: svgContent,
-        downloadUrl: filePath
-      };
-    });
-    
+    const svgObjects = await fileOps.generateCryptoIcons(symbol, brand);
+
     console.log('Sending generate crypto response');
     res.json(svgObjects);
   } catch (error) {

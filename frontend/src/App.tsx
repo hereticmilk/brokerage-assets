@@ -27,7 +27,7 @@ interface Crypto {
 interface SvgObject {
   name: string;
   svg: string;
-  downloadUrl: string;
+  pngBase64: string;
 }
 
 interface Brand {
@@ -196,16 +196,28 @@ function App() {
   const renderResults = (results: SvgObject[]) => {
     if (results.length === 0) return null;
 
-    const handleDownload = (svg: string, fileName: string) => {
-      const blob = new Blob([svg], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
+    const handleDownload = (data: string, fileName: string, type: 'svg' | 'png') => {
+      let blob;
+      if (type === 'svg') {
+        blob = new Blob([data], { type: 'image/svg+xml' });
+      } else if (type === 'png') {
+        const byteCharacters = atob(data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        blob = new Blob([byteArray], { type: 'image/png' });
+      }
+
+      const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = url;
+      link.href = blobUrl;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      window.URL.revokeObjectURL(blobUrl);
     };
 
     const getIconType = (name: string) => {
@@ -221,6 +233,11 @@ function App() {
       return '';
     };
 
+    const createSvgDataUrl = (svgContent: string) => {
+      const encodedSvg = encodeURIComponent(svgContent);
+      return `data:image/svg+xml,${encodedSvg}`;
+    };
+
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {results.map((item, index) => (
@@ -230,15 +247,31 @@ function App() {
               <CardDescription>{getIconSize(item.name)}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col items-center justify-center">
-              <div className="w-24 h-24 mb-4" dangerouslySetInnerHTML={{ __html: item.svg }} />
-              <Button
-                onClick={() => handleDownload(item.svg, `${item.name}.svg`)}
-                variant="outline"
-                size="sm"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </Button>
+              <div className="w-32 h-32 mb-4 flex items-center justify-center">
+                <img 
+                  src={createSvgDataUrl(item.svg)} 
+                  alt={item.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex space-x-2">
+                <Button
+                  onClick={() => handleDownload(item.svg, `${item.name}.svg`, 'svg')}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  SVG
+                </Button>
+                <Button
+                  onClick={() => handleDownload(item.pngBase64, `${item.name}.png`, 'png')}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  PNG
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ))}
