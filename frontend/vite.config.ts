@@ -35,7 +35,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../dist', // This ensures the build output is in the project root
+    outDir: 'dist', // Changed from '../dist' to 'dist'
     emptyOutDir: true,
   },
 });
