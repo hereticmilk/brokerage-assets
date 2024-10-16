@@ -226,7 +226,7 @@ function App() {
           <div className="container mx-auto flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8">
             <div>
               <h1 className="text-2xl font-bold">Brokerage Graphical Assets</h1>
-              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Artur Tretiukhin</a></p>
+              <p className="text-sm text-muted-foreground">Made with <Cat className="inline-block w-4 h-4 text-red-500" /> by <a href="https://www.linkedin.com/in/tretiukhin/" target="_blank" rel="noopener noreferrer" className="hover:underline">Artur Tretiukhin</a></p>
             </div>
             <div className="flex items-center space-x-2">
               <Button variant="outline" size="icon">
