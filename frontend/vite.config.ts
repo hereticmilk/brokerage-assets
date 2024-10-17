@@ -13,10 +13,15 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
+      '/api': 'http://localhost:3001',
+      '/output': 'http://localhost:3001'
+    },
+  },
+  preview: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:3001',
+      '/output': 'http://localhost:3001'
     },
   },
   build: {
