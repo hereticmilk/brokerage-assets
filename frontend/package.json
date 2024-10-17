@@ -1,0 +1,10 @@
+{
+  "name": "brokerage-symbol-assets-constructor-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build:frontend": "vite build",
+    "preview": "vite preview"
+  }
+}
